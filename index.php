@@ -38,7 +38,7 @@
             if(strpos(basename($name), 'Document') !== false){
                 $editorDir = 'documenteditor';
             } else if(strpos(basename($name), 'Presentation') !== false){
-                $editorDir = 'presenationeditor';
+                $editorDir = 'presentationeditor';
             } else if(strpos(basename($name), 'Spreadsheet') !== false){
                 $editorDir = 'spreadsheeteditor';
             }
@@ -77,7 +77,7 @@
     }
     $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('files/out'), RecursiveIteratorIterator::SELF_FIRST);
     foreach($objects as $name => $object){
-        if(is_dir($name)!=1 && strpos(basename($name), 'bg.json') != true && strpos(basename($name), 'fi.json') != true && strpos(basename($name), 'id.json') != true && strpos(basename($name), 'nb-NO.json') != true && strpos(basename($name), 'pt.json') != true && strpos(basename($name), 'sv.json') != true && strpos(basename($name), 'zh-TW.json') != true && filesize($name) > 1024){
+        if(is_dir($name)!=1 && strpos(basename($name), 'bg.json') != true && strpos(basename($name), 'da.json') != true && strpos(basename($name), 'fi.json') != true && strpos(basename($name), 'id.json') != true && strpos(basename($name), 'nb-NO.json') != true && strpos(basename($name), 'pt.json') != true && strpos(basename($name), 'sv.json') != true && strpos(basename($name), 'zh-TW.json') != true && filesize($name) > 1024){
             foreach($arrayNames as $editorName){
                 if(strpos($name, $editorName) !== false){
                     $dest_name = str_replace($editorName . '.', '', $name);
