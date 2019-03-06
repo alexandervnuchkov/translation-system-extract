@@ -19,8 +19,18 @@
     <h1>Extract Document Editor interface files</h1>
 <?php
 
-    rmdir('files/out');
-
+    if(is_dir('files/out')==1){
+        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('files/out'), RecursiveIteratorIterator::SELF_FIRST);
+        foreach($files as $file) {
+            if ($file->isDir()){
+                rmdir($file->getRealPath());
+            } else {
+                unlink($file->getRealPath());
+            }
+        }
+        rmdir('files/out');
+    }
+    
     $arrayNames = ['document_editor_v2', 'document_editor_mobile', 'document_editor', 'presentation_editor_v2', 'presentation_editor_mobile', 'presentation_editor', 'spreadsheet_editor_v2', 'spreadsheet_editor_mobile', 'spreadsheet_editor'];
 
     $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('files/src'), RecursiveIteratorIterator::SELF_FIRST);
@@ -76,8 +86,9 @@
         }
     }
     $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('files/out'), RecursiveIteratorIterator::SELF_FIRST);
+    
     foreach($objects as $name => $object){
-        if(is_dir($name)!=1 && strpos(basename($name), 'bg.json') != true && strpos(basename($name), 'da.json') != true && strpos(basename($name), 'fi.json') != true && strpos(basename($name), 'id.json') != true && strpos(basename($name), 'nb-NO.json') != true && strpos(basename($name), 'pt.json') != true && strpos(basename($name), 'sv.json') != true && strpos(basename($name), 'zh-TW.json') != true && filesize($name) > 1024){
+        if(is_dir($name)!=1 && strpos(basename($name), 'da.json') != true && strpos(basename($name), 'fi.json') != true && strpos(basename($name), 'id.json') != true && strpos(basename($name), 'nb-NO.json') != true && strpos(basename($name), 'pt.json') != true && strpos(basename($name), 'sv.json') != true && strpos(basename($name), 'zh-TW.json') != true && filesize($name) > 1024){
             foreach($arrayNames as $editorName){
                 if(strpos($name, $editorName) !== false){
                     $dest_name = str_replace($editorName . '.', '', $name);
@@ -97,7 +108,6 @@
             unlink($name);
         }
     }
-
 ?>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="js/arrowup.min.js"></script>
