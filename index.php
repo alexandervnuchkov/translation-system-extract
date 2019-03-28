@@ -19,7 +19,7 @@
     <h1>Extract Document Editor interface files</h1>
 <?php
 
-    if(is_dir('files/out')==1){
+    if(is_dir('files/out/web-apps')==1 || is_dir('files/out/web-apps-pro')==1){
         $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('files/out'), RecursiveIteratorIterator::SELF_FIRST);
         foreach($files as $file) {
             if ($file->isDir()){
@@ -28,7 +28,8 @@
                 unlink($file->getRealPath());
             }
         }
-        rmdir('files/out');
+        rmdir('files/out/web-apps');
+        rmdir('files/out/web-apps-pro');
     }
     
     $arrayNames = ['document_editor_v2', 'document_editor_mobile', 'document_editor', 'presentation_editor_v2', 'presentation_editor_mobile', 'presentation_editor', 'spreadsheet_editor_v2', 'spreadsheet_editor_mobile', 'spreadsheet_editor'];
@@ -55,18 +56,18 @@
             if(strpos(basename($name), 'Mobile') !== false){
                 $mobileDir = 'mobile/';
             }
-            if(strpos(basename($name), 'v2') !== false){
+            //if(strpos(basename($name), 'v2') !== false){
                 $webappsDir = 'web-apps-pro';
-            } else {
+            /*} else {
                 $webappsDir = 'web-apps';
-            }
+            }*/
             
             $dest_name = 'files/out/' . $webappsDir . '/' . $editorDir . '/' . $mobileDir . 'locale';
 
             mkdir($dest_name);
             echo '<br />' . $dest_name;
             
-            if($mobileDir !== '' && $webappsDir == 'web-apps'){
+            if($mobileDir !== '' /*&& $webappsDir == 'web-apps'*/){
                 $dest_name1 = 'files/out/web-apps-pro/' . $editorDir . '/' . $mobileDir . 'locale';
                 mkdir($dest_name1);
                 echo '<br />' . $dest_name1;
