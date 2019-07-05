@@ -32,7 +32,7 @@
         rmdir('files/out/web-apps-pro');
     }
     
-    $arrayNames = ['document_editor_v2', 'document_editor_mobile', 'document_editor', 'presentation_editor_v2', 'presentation_editor_mobile', 'presentation_editor', 'spreadsheet_editor_v2', 'spreadsheet_editor_mobile', 'spreadsheet_editor'];
+    $arrayNames = ['document_editor_v2', 'document_editor_mobile', 'document_editor_embedded', 'document_editor', 'presentation_editor_v2', 'presentation_editor_mobile', 'presentation_editor_embedded', 'presentation_editor', 'spreadsheet_editor_v2', 'spreadsheet_editor_mobile', 'spreadsheet_editor_embedded', 'spreadsheet_editor'];
 
     $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('files/src'), RecursiveIteratorIterator::SELF_FIRST);
     foreach($objects as $name => $object){
@@ -55,6 +55,8 @@
             }
             if(strpos(basename($name), 'Mobile') !== false){
                 $mobileDir = 'mobile/';
+            } else if(strpos(basename($name), 'Embedded') !== false){
+                $mobileDir = 'embedded/';
             }
             //if(strpos(basename($name), 'v2') !== false){
                 $webappsDir = 'web-apps-pro';
